@@ -24,7 +24,6 @@ pkgver() {
 
 build() {
 	unset CFLAGS CXXFLAGS CPPFLAGS LDFLAGS
-	export CFLAGS=-fcommon
 
 	make -C "${srcdir}"/arm-trusted-firmware PLAT=rk3399
 	make -C "${srcdir}"/pbp-uboot pinebook_pro-rk3399_defconfig

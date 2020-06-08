@@ -1,0 +1,16 @@
+# Maintainer : Dan Johansen <strit@manjaro.org>
+
+pkgname=pbp-keyboard-hwdb
+pkgver=20$(date +%y%m%d)
+pkgrel=1
+pkgdesc="hwdb entry for the Pinebook Pro keyboard that makes the brightness shortcuts work."
+arch=('any')
+url="https://www.manjaro.org"
+license=('GPL')
+source=("10-usb-kbd.hwdb")
+md5sums=('cd33e32e8317d8a4e43e55d445aa9c69')
+
+package() {
+    install -Dm644 "${srcdir}/10-usb-kbd.hwdb" -t "${pkgdir}/usr/lib/udev/hwdb.d/"
+}
+

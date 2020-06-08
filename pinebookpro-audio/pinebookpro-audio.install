@@ -1,0 +1,5 @@
+post_upgrade() {
+	echo "For these scripts to work, you need to have acpid running."
+	echo "Enabling hpdet state sync at boot ..."
+	systemctl enable --now pinebookpro-audio.service
+}
