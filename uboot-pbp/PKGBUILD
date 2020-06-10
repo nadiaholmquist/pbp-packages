@@ -1,6 +1,7 @@
-
-pkgname=uboot-pinebookpro
-pkgver=r62485.365495a329
+pkgname=uboot-pbp
+pkgver=2020.07rc4
+_uboottag=$(echo "v$pkgver" | sed "s/rc/-rc/")
+_tfatag=v2.3
 pkgrel=1
 pkgdesc='Almost upstream u-boot for the Pinebook Pro.'
 arch=('aarch64')
@@ -8,29 +9,22 @@ url='https://git.eno.space/pbp-uboot.git'
 license=('GPL2')
 install=${pkgname}.install
 makedepends=('bc' 'make' 'gcc' 'dtc' 'uboot-tools' 'arm-none-eabi-gcc' 'python')
-replaces=('pinebookpro-uboot')
 
-_tfatag=v2.3
 source=(
 	"git+https://github.com/ARM-software/arm-trusted-firmware.git#tag=${_tfatag}"
-	"git+https://git.eno.space/pbp-uboot.git"
+	"git+https://github.com/u-boot/u-boot#tag=${_uboottag}"
 )
 sha256sums=('SKIP' 'SKIP')
-
-pkgver() {
-  cd "${srcdir}"/pbp-uboot
-  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
-}
 
 build() {
 	unset CFLAGS CXXFLAGS CPPFLAGS LDFLAGS
 
 	make -C "${srcdir}"/arm-trusted-firmware PLAT=rk3399
-	make -C "${srcdir}"/pbp-uboot pinebook_pro-rk3399_defconfig
-	make -C "${srcdir}"/pbp-uboot BL31="${srcdir}"/arm-trusted-firmware/build/rk3399/release/bl31/bl31.elf
+	make -C "${srcdir}"/u-boot pinebook-pro-rk3399_defconfig
+	make -C "${srcdir}"/u-boot BL31="${srcdir}"/arm-trusted-firmware/build/rk3399/release/bl31/bl31.elf
 }
 
 package() {
-	install -Dm 644 "${srcdir}"/pbp-uboot/idbloader.img "${pkgdir}"/boot/idbloader.img
-	install -Dm 644 "${srcdir}"/pbp-uboot/u-boot.itb "${pkgdir}"/boot/u-boot.itb
+	install -Dm 644 "${srcdir}"/u-boot/idbloader.img "${pkgdir}"/boot/idbloader.img
+	install -Dm 644 "${srcdir}"/u-boot/u-boot.itb "${pkgdir}"/boot/u-boot.itb
 }
