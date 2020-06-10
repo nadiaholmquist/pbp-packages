@@ -5,8 +5,8 @@
 pkgbase=linux-pbp
 _srcname=linux-5.7
 _kernelname=${pkgbase#linux}
-_desc="AArch64 multi-platform"
-pkgver=5.7.1
+_desc="Linux kernel with patches for the Pinebook Pro."
+pkgver=5.7.2
 pkgrel=2
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -27,7 +27,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '60-linux.hook'
 		'90-linux.hook')
 md5sums=('f63ed18935914e1ee3e04c2a0ce1ba3b'
-         'b0966d2c054d9a748d9de0cd4c49cfb7'
+         '7dbd8df264550584e43dfc512c2b9acd'
          '6ee347975dca719ecd63a846cc5983b2'
          'd235bd43604bba10d878e066d80846ef'
          '7ca26d7c90227224769e176043dd7fa9'
