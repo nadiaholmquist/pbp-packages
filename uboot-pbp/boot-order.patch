@@ -1,0 +1,13 @@
+--- a/include/configs/rockchip-common.h	2020-06-08 18:45:23.611029236 +0200
++++ b/include/configs/rockchip-common.h	2020-06-16 18:28:29.747999278 +0200
+@@ -17,8 +17,8 @@
+ /* First try to boot from SD (index 0), then eMMC (index 1) */
+ #if CONFIG_IS_ENABLED(CMD_MMC)
+ 	#define BOOT_TARGET_MMC(func) \
+-		func(MMC, mmc, 0) \
+-		func(MMC, mmc, 1)
++		func(MMC, mmc, 1) \
++		func(MMC, mmc, 0)
+ #else
+ 	#define BOOT_TARGET_MMC(func)
+ #endif

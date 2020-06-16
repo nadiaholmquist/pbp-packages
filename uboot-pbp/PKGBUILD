@@ -2,7 +2,7 @@ pkgname=uboot-pbp
 pkgver=2020.07rc4
 _ubootver=$(echo "$pkgver" | sed "s/rc/-rc/")
 _tfatag=v2.3
-pkgrel=2
+pkgrel=3
 pkgdesc='Almost upstream u-boot for the Pinebook Pro.'
 arch=('aarch64')
 url='https://www.denx.de/wiki/U-Boot'
@@ -13,11 +13,16 @@ makedepends=('bc' 'make' 'gcc' 'dtc' 'uboot-tools' 'arm-none-eabi-gcc' 'python')
 source=(
 	"git+https://github.com/ARM-software/arm-trusted-firmware.git#tag=${_tfatag}"
 	"ftp://ftp.denx.de/pub/u-boot/u-boot-${_ubootver}.tar.bz2"
+	"boot-order.patch"
 )
-sha256sums=(
-  'SKIP'
-  '24a7b888e2c39cc93a8f5af5d5bf2eb0a9412f6992df71716c6fe233faef250a'
-)
+sha256sums=('SKIP'
+            '24a7b888e2c39cc93a8f5af5d5bf2eb0a9412f6992df71716c6fe233faef250a'
+            'beb77a801b51fbf4cc4f66b79e618e748e4e53c00e515d454f93b51b323acd38')
+
+prepare() {
+	cd "${srcdir}/u-boot-${_ubootver}"
+	patch -Np1 -i "${srcdir}/boot-order.patch"
+}
 
 build() {
 	unset CFLAGS CXXFLAGS CPPFLAGS LDFLAGS
