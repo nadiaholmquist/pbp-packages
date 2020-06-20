@@ -1,9 +1,11 @@
+# Maintainer: Nadia Holmquist Pedersen <nadia@nhp.sh>
+
 pkgname=uboot-pbp
 pkgver=2020.07rc4
 _ubootver=$(echo "$pkgver" | sed "s/rc/-rc/")
 _tfatag=v2.3
-pkgrel=3
-pkgdesc='Almost upstream u-boot for the Pinebook Pro.'
+pkgrel=4
+pkgdesc='U-boot for the Pinebook Pro.'
 arch=('aarch64')
 url='https://www.denx.de/wiki/U-Boot'
 license=('GPL2')
@@ -13,15 +15,23 @@ makedepends=('bc' 'make' 'gcc' 'dtc' 'uboot-tools' 'arm-none-eabi-gcc' 'python')
 source=(
 	"git+https://github.com/ARM-software/arm-trusted-firmware.git#tag=${_tfatag}"
 	"ftp://ftp.denx.de/pub/u-boot/u-boot-${_ubootver}.tar.bz2"
-	"boot-order.patch"
+	"0001-Add-regulator-needed-for-usage-of-USB.patch"
+	"0002-Correct-boot-order-to-be-USB-SD-eMMC.patch"
+	"0003-Enable-the-power-LED-during-early-startup.patch"
 )
 sha256sums=('SKIP'
             '24a7b888e2c39cc93a8f5af5d5bf2eb0a9412f6992df71716c6fe233faef250a'
-            'beb77a801b51fbf4cc4f66b79e618e748e4e53c00e515d454f93b51b323acd38')
+            'b4f0c72489f58034587cf49654917e037a8ac9ecc6d6ad589cbc35fbdc6a1d74'
+            '01f2389dec80b28024aa8f14133b62865dfac0285d0101ea0d7506639294e875'
+            'fe82a9822c2c3ade6c5908df1b10b5102626c7bfcf59d8cdfc6f89aa33fd81c9')
 
 prepare() {
 	cd "${srcdir}/u-boot-${_ubootver}"
-	patch -Np1 -i "${srcdir}/boot-order.patch"
+
+	# Patches almost entirely based on dhivael's u-boot repository at https://git.eno.space/pbp-uboot.git
+	patch -Np1 -i "${srcdir}/0001-Add-regulator-needed-for-usage-of-USB.patch"
+	patch -Np1 -i "${srcdir}/0002-Correct-boot-order-to-be-USB-SD-eMMC.patch"
+	patch -Np1 -i "${srcdir}/0003-Enable-the-power-LED-during-early-startup.patch"
 }
 
 build() {
