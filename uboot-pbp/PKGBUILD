@@ -1,7 +1,7 @@
 # Maintainer: Nadia Holmquist Pedersen <nadia@nhp.sh>
 
 pkgname=uboot-pbp
-pkgver=2020.07rc5
+pkgver=2020.07
 _ubootver=$(echo "$pkgver" | sed "s/rc/-rc/")
 _tfatag=v2.3
 pkgrel=1
@@ -20,7 +20,7 @@ source=(
 	"0003-Enable-the-power-LED-during-early-startup.patch"
 )
 sha256sums=('SKIP'
-            '9b2864a74d9848e90dbfa1833c185866e81293860ba6cab7ca88daaee85581fe'
+            'c1f5bf9ee6bb6e648edbf19ce2ca9452f614b08a9f886f1a566aa42e8cf05f6a'
             'b4f0c72489f58034587cf49654917e037a8ac9ecc6d6ad589cbc35fbdc6a1d74'
             '01f2389dec80b28024aa8f14133b62865dfac0285d0101ea0d7506639294e875'
             'fe82a9822c2c3ade6c5908df1b10b5102626c7bfcf59d8cdfc6f89aa33fd81c9')
