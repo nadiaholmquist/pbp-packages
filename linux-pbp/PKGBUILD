@@ -22,6 +22,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0012-add-suspend-to-rk3399-PBP.patch'
         '0013-arm64-dts-rockchip-setup-USB-type-c-port-as-dual-dat.patch'
 		'0015-add-dp-alt-mode-to-PBP.patch'
+		'0017-drm-bridge-analogix_dp-Add-enable_psr-param.patch'
         'config'
         'linux.preset'
         '60-linux.hook'
@@ -56,6 +57,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/0012-add-suspend-to-rk3399-PBP.patch"                                #Pinebook Pro
   patch -Np1 -i "${srcdir}/0013-arm64-dts-rockchip-setup-USB-type-c-port-as-dual-dat.patch"     #Pinebook Pro
   patch -Np1 -i "${srcdir}/0015-add-dp-alt-mode-to-PBP.patch"
+  patch -Np1 -i "${srcdir}/0017-drm-bridge-analogix_dp-Add-enable_psr-param.patch"
   
   cat "${srcdir}/config" > ./.config
 

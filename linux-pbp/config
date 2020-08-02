@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 5.7.0-3 Kernel Configuration
+# Linux/arm64 5.7.10-1 Kernel Configuration
 #
 
 #
@@ -602,6 +602,7 @@ CONFIG_EFI_BOOTLOADER_CONTROL=y
 # end of EFI (Extensible Firmware Interface) Support
 
 CONFIG_EFI_EARLYCON=y
+CONFIG_EFI_CUSTOM_SSDT_OVERLAYS=y
 # CONFIG_IMX_DSP is not set
 CONFIG_IMX_SCU=y
 CONFIG_IMX_SCU_PD=y
@@ -4252,7 +4253,7 @@ CONFIG_W1_MASTER_DS2490=m
 CONFIG_W1_MASTER_DS2482=m
 # CONFIG_W1_MASTER_MXC is not set
 CONFIG_W1_MASTER_DS1WM=m
-# CONFIG_W1_MASTER_GPIO is not set
+CONFIG_W1_MASTER_GPIO=m
 # CONFIG_W1_MASTER_SGI is not set
 # end of 1-wire Bus Masters
 
