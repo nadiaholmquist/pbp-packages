@@ -15,6 +15,8 @@ makedepends=('bc' 'make' 'gcc' 'dtc' 'uboot-tools' 'arm-none-eabi-gcc' 'python')
 _patches=(
 	"0002-Correct-boot-order-to-be-USB-SD-eMMC.patch"
 	"0003-Enable-the-power-LED-during-early-startup.patch"
+	"0005-PBP-Fix-Panel-reset.patch"
+	"RFC-Pinebook-pro-EDP-support.patch"
 )
 
 source=(
@@ -25,7 +27,9 @@ source=(
 sha256sums=('SKIP'
             '0d481bbdc05c0ee74908ec2f56a6daa53166cc6a78a0e4fac2ac5d025770a622'
             '01f2389dec80b28024aa8f14133b62865dfac0285d0101ea0d7506639294e875'
-            'fe82a9822c2c3ade6c5908df1b10b5102626c7bfcf59d8cdfc6f89aa33fd81c9')
+            'fe82a9822c2c3ade6c5908df1b10b5102626c7bfcf59d8cdfc6f89aa33fd81c9'
+            'c3ea09a18b766a3ce0728234b097b29e2ed610c7f04b138b7fba42e118a7ae33'
+            '24510fdc948762718778979331939e6e5e153b1d448b6987ddf151db47aa5ffe')
 
 prepare() {
 	cd "${srcdir}/u-boot-${_ubootver}"
