@@ -6,14 +6,13 @@ pkgbase=linux-pbp
 _srcname=linux-5.9
 _kernelname=${pkgbase#linux}
 _desc="Linux kernel with patches for the Pinebook Pro."
-pkgver=5.9.0
+pkgver=5.9.3
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' 'dtc')
 options=('!strip')
-#        "http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
 
 _patches=(
         '0004-tty-serdev-support-shutdown-op.patch'
@@ -21,21 +20,21 @@ _patches=(
         '0006-bluetooth-hci_bcm-disable-power-on-shutdown.patch'
         '0007-mmc-core-pwrseq_simple-disable-mmc-power-on-shutdown.patch'
         '0024-arm64-dts-rockchip-setup-USB-type-c-port-as-dual-dat.patch'
-		'0012-pwm-rockchip-Keep-enabled-PWMs-running-while-probing.patch'
 )
 source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
-		"${_patches[@]}"
+	"http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
+	"${_patches[@]}"
     'config'
     'linux.preset'
     '60-linux.hook'
 		'90-linux.hook')
 md5sums=('0959d759fd19e146367221aff504ad91'
+         'f7990758b88ec9e49f367793d1d7031e'
          '11e653f50135c1e9fa703118fa7f2623'
          '05c7919f7fc1019e99e6965559bde5d5'
          '894a88a9579b22c22747b1748f181bb9'
          '610a4e1484a1874b272ff6d8292f5931'
          '73803b563b9e794a3b495524de99ced7'
-         '4815f95bea48100ee81a476d8bfa2f6b'
          '0ad3329175ef21b91105c67e5dab3c42'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
@@ -45,7 +44,7 @@ prepare() {
   cd ${_srcname}
 
   # add upstream patch
-  #patch -Np1 -i "${srcdir}/patch-${pkgver}"
+  patch -Np1 -i "${srcdir}/patch-${pkgver}"
 
   for patch in "${_patches[@]}"; do
     echo "Applying $patch"
