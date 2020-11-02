@@ -4,7 +4,7 @@ pkgname=uboot-pbp
 pkgver=2020.10
 _ubootver=$(echo "$pkgver" | sed "s/rc/-rc/")
 _tfatag=v2.3
-pkgrel=1
+pkgrel=2
 pkgdesc='U-boot for the Pinebook Pro.'
 arch=('aarch64')
 url='https://www.denx.de/wiki/U-Boot'
@@ -15,17 +15,21 @@ makedepends=('bc' 'make' 'gcc' 'dtc' 'uboot-tools' 'arm-none-eabi-gcc' 'python')
 _patches=(
 	"0002-Correct-boot-order-to-be-USB-SD-eMMC.patch"
 	"0003-Enable-the-power-LED-during-early-startup.patch"
+	"0005-PBP-Fix-Panel-reset.patch"
 )
 
 source=(
 	"git+https://github.com/ARM-software/arm-trusted-firmware.git#tag=${_tfatag}"
 	"ftp://ftp.denx.de/pub/u-boot/u-boot-${_ubootver}.tar.bz2"
+	"config"
 	"${_patches[@]}"
 )
 sha256sums=('SKIP'
             '0d481bbdc05c0ee74908ec2f56a6daa53166cc6a78a0e4fac2ac5d025770a622'
+            'c96d9e14aebf7db22c7a6648e7c1aac68417c7f8f0338318ed96630ab150dcad'
             '01f2389dec80b28024aa8f14133b62865dfac0285d0101ea0d7506639294e875'
-            'fe82a9822c2c3ade6c5908df1b10b5102626c7bfcf59d8cdfc6f89aa33fd81c9')
+            'fe82a9822c2c3ade6c5908df1b10b5102626c7bfcf59d8cdfc6f89aa33fd81c9'
+            'c3ea09a18b766a3ce0728234b097b29e2ed610c7f04b138b7fba42e118a7ae33')
 
 prepare() {
 	cd "${srcdir}/u-boot-${_ubootver}"
@@ -40,7 +44,8 @@ build() {
 	unset CFLAGS CXXFLAGS CPPFLAGS LDFLAGS
 
 	make -C "${srcdir}"/arm-trusted-firmware PLAT=rk3399
-	make -C "${srcdir}"/u-boot-${_ubootver} pinebook-pro-rk3399_defconfig
+	#make -C "${srcdir}"/u-boot-${_ubootver} pinebook-pro-rk3399_defconfig
+	cp "${srcdir}/config" "${srcdir}/u-boot-${_ubootver}/.config"
 	make -C "${srcdir}"/u-boot-${_ubootver} BL31="${srcdir}"/arm-trusted-firmware/build/rk3399/release/bl31/bl31.elf
 }
 
