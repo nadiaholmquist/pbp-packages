@@ -8,6 +8,6 @@ Server = https://nhp.sh/pinebookpro/
 ```
 then run the following as root to import the signing key:
 ```
-pacman-key --recv-keys 955129793AA3C36B
-pacman-key --lsign-key 955129793AA3C36B
+pacman-key --recv-keys 50626D06C63A8C774FCB35D2497FE64338F993E9
+pacman-key --lsign-key 50626D06C63A8C774FCB35D2497FE64338F993E9
 ```
