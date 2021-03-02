@@ -1,12 +1,13 @@
 # AArch64 multi-platform
 # Contributor: Kevin Mihelich <kevin@archlinuxarm.org>
-# Maintainer: Dan Johansen <strit@manjaro.org>
+# Contributor: Dan Johansen <strit@manjaro.org>
+# Maintainer: Nadia Holmquist Pedersen <nadia@nhp.sh>
 
 pkgbase=linux-pbp
-_srcname=linux-5.10
+_srcname=linux-5.11
 _kernelname=${pkgbase#linux}
 _desc="Linux kernel with patches for the Pinebook Pro."
-pkgver=5.10.12
+pkgver=5.11.2
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -15,21 +16,37 @@ makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' '
 options=('!strip')
 
 _patches=(
-        '0007-mmc-core-pwrseq_simple-disable-mmc-power-on-shutdown.patch'
-        '0024-arm64-dts-rockchip-setup-USB-type-c-port-as-dual-dat.patch'
-)
-source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
-	"http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
-	"${_patches[@]}"
+    0007-mmc-core-pwrseq_simple-disable-mmc-power-on-shutdown.patch
+    0011-typec-displayport-some-devices-have-pin-assignments-reversed.patch
+    0012-usb-typec-tcpm-Add-generic-extcon-for-tcpm-enabled-devices.patch
+    0013-usb-typec-tcpm-Add-generic-extcon-to-tcpm.patch
+    0021-usb-typec-bus-Catch-crash-due-to-partner-NULL-value.patch
+    0022-phy-rockchip-typec-Set-extcon-capabilities.patch
+    0023-usb-typec-altmodes-displayport-Add-hacky-generic-altmode.patch
+    0024-arm64-dts-rockchip-setup-USB-type-c-port-as-dual-dat.patch
+    0026-arm64-dts-rockchip-add-typec-extcon-hack.patch
+  )
+source=(
+    "http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
+    "http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
+    "${_patches[@]}"
     'config'
     'linux.preset'
     '60-linux.hook'
-		'90-linux.hook')
-md5sums=('753adc474bf799d569dec4f165ed92c3'
-         'd08e416054060a5a61f75c6a711a756c'
+    '90-linux.hook'
+)
+md5sums=('d2985a3f16ef1ea3405c04c406e29dcc'
+         '4f2437097d20455c71d1b1866469d6be'
          '610a4e1484a1874b272ff6d8292f5931'
+         'a033be22c23afb1d5daeeeb21353185d'
+         '6a88f7e762eb7895b3f5db38daa6bb24'
+         'e78fd8f59f5d073069aec121e033590b'
+         '005e92dfe1cb92062b7abf3e7ef9a208'
+         '252b4dbd2d0f560b6d254f29dd5b0f5f'
+         'ab9c0c25e2b7272fca3caf491b7dc89c'
          '73803b563b9e794a3b495524de99ced7'
-         'ed98cacbc1172a96d7ed9a2e4f75751a'
+         'c706ccdf118f4146e7ca35808d819b8a'
+         '1cbe863cc04daa7f43559fd4be7ad0db'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77')
@@ -222,3 +239,5 @@ for _p in ${pkgname[@]}; do
     _package${_p#${pkgbase}}
   }"
 done
+
+# vim: ts=2 sw=2 et
