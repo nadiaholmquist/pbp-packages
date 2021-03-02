@@ -8,7 +8,7 @@ _srcname=linux-5.11
 _kernelname=${pkgbase#linux}
 _desc="Linux kernel with patches for the Pinebook Pro."
 pkgver=5.11.2
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -20,12 +20,15 @@ _patches=(
     0011-typec-displayport-some-devices-have-pin-assignments-reversed.patch
     0012-usb-typec-tcpm-Add-generic-extcon-for-tcpm-enabled-devices.patch
     0013-usb-typec-tcpm-Add-generic-extcon-to-tcpm.patch
+    0014-arm64-rockchip-add-DP-ALT-rockpro64.patch
+    0015-ayufan-drm-rockchip-add-support-for-modeline-32MHz-e.patch
     0021-usb-typec-bus-Catch-crash-due-to-partner-NULL-value.patch
     0022-phy-rockchip-typec-Set-extcon-capabilities.patch
     0023-usb-typec-altmodes-displayport-Add-hacky-generic-altmode.patch
     0024-arm64-dts-rockchip-setup-USB-type-c-port-as-dual-dat.patch
     0026-arm64-dts-rockchip-add-typec-extcon-hack.patch
-  )
+    pbp-2d-fix.patch
+) 
 source=(
     "http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
     "http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
@@ -41,11 +44,14 @@ md5sums=('d2985a3f16ef1ea3405c04c406e29dcc'
          'a033be22c23afb1d5daeeeb21353185d'
          '6a88f7e762eb7895b3f5db38daa6bb24'
          'e78fd8f59f5d073069aec121e033590b'
+         '09fc19ac5c51e2839ca56248ccf6323a'
+         '66fae3fc96f0a478a56ff11632f3ef70'
          '005e92dfe1cb92062b7abf3e7ef9a208'
          '252b4dbd2d0f560b6d254f29dd5b0f5f'
          'ab9c0c25e2b7272fca3caf491b7dc89c'
          '73803b563b9e794a3b495524de99ced7'
          'c706ccdf118f4146e7ca35808d819b8a'
+         '1319b1bafe750e89156c566021ad8b46'
          '1cbe863cc04daa7f43559fd4be7ad0db'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'

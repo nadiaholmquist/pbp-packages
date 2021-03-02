@@ -1,0 +1,10 @@
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_fb.c	2020-12-13 16:41:30.000000000 -0600
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_fb.c	2021-02-02 15:32:40.038032199 -0600
+@@ -21,7 +21,6 @@
+ static const struct drm_framebuffer_funcs rockchip_drm_fb_funcs = {
+ 	.destroy       = drm_gem_fb_destroy,
+ 	.create_handle = drm_gem_fb_create_handle,
+-	.dirty	       = drm_atomic_helper_dirtyfb,
+ };
+ 
+ static struct drm_framebuffer *
