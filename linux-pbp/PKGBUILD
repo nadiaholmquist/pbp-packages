@@ -4,15 +4,15 @@
 # Maintainer: Nadia Holmquist Pedersen <nadia@nhp.sh>
 
 pkgbase=linux-pbp
-_srcname=linux-5.11
+_srcname=linux-5.12
 _kernelname=${pkgbase#linux}
 _desc="Linux kernel with patches for the Pinebook Pro."
-pkgver=5.11.2
-pkgrel=2
+pkgver=5.12.6
+pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
-license=('GPL2')
-makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' 'dtc')
+license=(GPL2)
+makedepends=(xmlto docbook-xsl kmod inetutils bc git uboot-tools dtc llvm lld clang)
 options=('!strip')
 
 _patches=(
@@ -38,12 +38,12 @@ source=(
     '60-linux.hook'
     '90-linux.hook'
 )
-md5sums=('d2985a3f16ef1ea3405c04c406e29dcc'
-         '4f2437097d20455c71d1b1866469d6be'
+md5sums=('8c7420990de85f6754db287337da08b4'
+         'c8b04ee6bbc9e58dae1863c91b64231d'
          '610a4e1484a1874b272ff6d8292f5931'
          'a033be22c23afb1d5daeeeb21353185d'
          '6a88f7e762eb7895b3f5db38daa6bb24'
-         'e78fd8f59f5d073069aec121e033590b'
+         '772a0be8020582bd3956091a97e464b4'
          '09fc19ac5c51e2839ca56248ccf6323a'
          '66fae3fc96f0a478a56ff11632f3ef70'
          '005e92dfe1cb92062b7abf3e7ef9a208'
@@ -52,7 +52,7 @@ md5sums=('d2985a3f16ef1ea3405c04c406e29dcc'
          '73803b563b9e794a3b495524de99ced7'
          'c706ccdf118f4146e7ca35808d819b8a'
          '1319b1bafe750e89156c566021ad8b46'
-         '1cbe863cc04daa7f43559fd4be7ad0db'
+         '78f0b628a5b91ced8c206bc97d71d65c'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77')
@@ -80,36 +80,14 @@ prepare() {
 build() {
   cd ${_srcname}
 
-#  export MAKEFLAGS=($MAKEFLAGS LLVM=1 CC=clang)
-
-  # get kernel version
-  make "${MAKEFLAGS[@]}" prepare
-
-  # load configuration
-  # Configure the kernel. Replace the line below with one of your choice.
-  #make menuconfig # CLI menu for configuration
-  #make nconfig # new CLI menu for configuration
-  #make xconfig # X-based configuration
-  #make oldconfig # using old config from previous kernel version
-  # ... or manually edit .config
-
-  # Copy back our configuration (use with new kernel version)
-  #cp ./.config /var/tmp/${pkgbase}.config
-
-  ####################
-  # stop here
-  # this is useful to configure the kernel
-  #msg "Stopping build"
-  #return 1
-  ####################
-
-  #yes "" | make config
-
-  # build!
+  export MAKEFLAGS="$MAKEFLAGS LLVM=1 LLVM_IAS=1"
   unset LDFLAGS
-  make "${MAKEFLAGS[@]}" Image Image.gz modules
+
+  make prepare
+
+  make Image Image.gz modules
   # Generate device tree blobs with symbols to support applying device tree overlays in U-Boot
-  make "${MAKEFLAGS[@]}" DTC_FLAGS="-@" dtbs
+  make DTC_FLAGS="-@" dtbs
 }
 
 _package() {
