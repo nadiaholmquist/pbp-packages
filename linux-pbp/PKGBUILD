@@ -7,7 +7,7 @@ pkgbase=linux-pbp
 _srcname=linux-5.12
 _kernelname=${pkgbase#linux}
 _desc="Linux kernel with patches for the Pinebook Pro."
-pkgver=5.12.6
+pkgver=5.12.7
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -39,7 +39,7 @@ source=(
     '90-linux.hook'
 )
 md5sums=('8c7420990de85f6754db287337da08b4'
-         'c8b04ee6bbc9e58dae1863c91b64231d'
+         'a507eb0c0188706587060ff2aaaa2709'
          '610a4e1484a1874b272ff6d8292f5931'
          'a033be22c23afb1d5daeeeb21353185d'
          '6a88f7e762eb7895b3f5db38daa6bb24'
